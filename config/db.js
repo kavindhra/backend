@@ -4,6 +4,7 @@ dotenv.config();
 
 const connectdb = async () => {
     try {
+        console.log("MONGO_URI:", process.env.MONGO_URL);
         console.log("Attempting to connect to MongoDB Atlas...");
         
         // Connect WITHOUT the deprecated options
