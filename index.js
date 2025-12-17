@@ -8,7 +8,16 @@ const ProductRoute = require("./routes/productRoute");
 const app = express();
 
 /* ---------- MIDDLEWARE ---------- */
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://35.154.119.124:3000", // frontend public IP
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
