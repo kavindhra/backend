@@ -1,9 +1,18 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
+
+const ProductRoute = require("./routes/productRoute");
 
 const app = express();
 
+/* ---------- MIDDLEWARE ---------- */
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+/* ---------- DB CONNECTION ---------- */
 console.log("MONGO_URI:", process.env.MONGO_URL);
 
 mongoose
@@ -14,6 +23,16 @@ mongoose
     process.exit(1);
   });
 
-app.listen(5000, () => {
-  console.log("Server is running on port 5000");
+/* ---------- ROUTES ---------- */
+app.use("/api", ProductRoute);
+
+app.get("/", (req, res) => {
+  res.send("🚀 E-Commerce API is running");
+});
+
+/* ---------- SERVER ---------- */
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`✅ Server running on port ${PORT}`);
 });
